@@ -24,17 +24,10 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 | 3. | Your Network Admin may not like this|
 
 | Other Notes | Description                                             |
+|-----------------|---------------------------------------------------------|
 | 1. | This works Rasberry Pi OS Version "10 (buster)" (Bookworm in the future) |
 | 2. | Expecation is the microcontroller is capable of 2.4 GHZ only|
 | 3. | There is no actual network bridging happening per se, it's just a fancy term I use |
-
-
-- NOTE1: This works Rasberry Pi OS Version "10 (buster)" (Bookwork in the future)
-- NOTE2: Steps may need to use a low security workaround at the moment - I am just playing around in a lab env. Use Caution.
-- NOTE3: Your password is held in the clear in a text file protected only by unix permissions (which is nothing if your pi is stolen)
-- NOTE4: The expecation is the microcontroller / wifi supplicant on wlan1 will be capable of 2.4 GHZ only.
-- NOTE5: Your Network Admin may not like this - I am just playing around in a lab env. Use Caution.
-- NOTE6: "Bridge" is just a term - there is no actual network or ethernet bridging actually happening per se
 
 With all that out of the way...
 
