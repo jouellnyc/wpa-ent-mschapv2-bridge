@@ -36,7 +36,7 @@ With all that out of the way...
 # How To
 1. Install Buster per usual
 2. Install Hostapd - I used Hostapd v2.8-devel
-3. Install Dnsmasq - I usued Dnsmasq version 2.80  
+3. Install Dnsmasq - I used Dnsmasq version 2.80  
 4. I used wpa_supplicant v2.10
 5. Setup your config files like this or similar:
 
@@ -219,5 +219,7 @@ With that you should have:
 [Pi Forum solution for Hostapd Startup Failures](https://forums.raspberrypi.com/viewtopic.php?t=234145)
 
 [Connection Bug lowering Security Levels](https://bugs.launchpad.net/ubuntu/+source/wpa/+bug/1958267)
+
+[Connection Bug ](https://bbs.archlinux.org/viewtopic.php?id=286417&p=2)
 
 
