@@ -2,13 +2,14 @@
 How to set up a Raspberry Pi Device for use on a WPA2-Enterprise Network for the express purpose of being a "bridge" for microcontrollers that do not have this capabilty.
 
 # Why? 
-If you have an esp32s or raspberry pi pico and what to access network with WPA-Enterprise authentication, you can't.
+1 - If you have an esp32s or raspberry pi pico and what to access network with WPA-Enterprise authentication, you can't.
+2 - You can have an ssd1306 "Monitor" on your desk. As an Authentication SRE, I find it a nice ice breaker, talking point.
 
 # Requirements
 - A raspbery pi or some sort
-- A second USB wireless adapter
+- A second USB (wireless adapter)[https://www.amazon.com/gp/product/B07C9TYDR4] - I used a Panda
 - Possibly a USB OTG hub
-- Optional - OLED
+- Optional - (OLED)[https://www.amazon.com/gp/product/B08KY21SR2/] - I used 0.96" OLED on a tiny breadboard
 
 - NOTE1: This works Rasberry Pi OS Version "10 (buster)" (Bookwork in the future)
 - NOTE2: Steps use a low security workaround at the moment - I am just playing around in a lab env. Use Caution.
