@@ -3,6 +3,7 @@ How to set up a Raspberry Pi Device for use on a WPA2-Enterprise Network for the
 
 # Why? 
 1 - If you have an esp32s or raspberry pi pico and what to access network with WPA-Enterprise authentication, you can't.
+
 2 - You can have an ssd1306 "Monitor" on your desk. As an Authentication SRE, I find it a nice ice breaker, talking point.
 
 # Requirements
