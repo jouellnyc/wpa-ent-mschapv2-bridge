@@ -23,7 +23,7 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 |-----------------|---------------------------------------------------------|
 | 1. | May need to use a low security workaround for ssl ciphers| 
 | 2. | Your password is in clear text protected  by unix permissions (unless your pi is stolen)|
-| 3. | Your Network Admin may not like this|
+| 3. | Your Network Admin may not like this - I am just playing around using a LAB - use caution!|
 
 | Other Notes | Description                                             |
 |-----------------|---------------------------------------------------------|
