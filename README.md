@@ -1,0 +1,173 @@
+# WPA2-Enterprise-Bridge-Setup
+How to set up a Raspberry Pi Device for use on a WPA2-Enterprise Network for the express purpose of being a "bridge" for microcontrollers that do not have this capabilty.
+
+# Why? 
+If you have an esp32s or raspberry pi pico and what to access network with WPA-Enterprise authentication, you can't.
+
+# Requirements
+- A raspbery pi or some sort
+- A second USB wireless adapter
+- Possibly a USB OTG hub
+- Optional - OLED
+
+- NOTE1: This works Rasberry Pi OS Version "10 (buster)" (Bookwork in the future)
+- NOTE2: Steps use a low security workaround at the moment - I am just playing around in a lab env. Use Caution.
+- NOTE3: The expecation is the microcontroller / wifi supplicant on wlan1 will be capable of 2.4 GHZ only.
+
+
+# How To
+1. Install Buster per usual
+2. Install Hostapd
+3. Install Dnsmasq
+4. Setup your config files like this or similar:
+
+
+```
+1 - /etc/wpa_supplicant/wpa_supplicant.conf
+
+country=US
+ctrl_interface=/var/run/wpa_supplicant
+ap_scan=1
+update_config=1
+### Not Secure or wise for Production 
+#tls_disable_tlsv1_0=0
+#tls_disable_tlsv1_1=0
+#openssl_ciphers=DEFAULT@SECLEVEL=0
+
+
+network={
+
+    ssid="YOURSID"
+    key_mgmt=WPA-EAP
+    eap=PEAP
+    identity="YOURID"
+
+}
+
+
+cred={
+
+    password="YOURPASS"
+    domain="DNS_SUBJECT_NAME_IN_THE_RADIUS_SERVERS_CERT"
+    phase2="auth=MSCHAPV2"
+
+}
+
+2 - /etc/systemd/system/multi-user.target.wants/wpa_supplicant.service  (this should be the same, provided for convenience)
+
+[Unit]
+Description=WPA supplicant
+Before=network.target
+After=dbus.service
+Wants=network.target
+
+[Service]
+Type=dbus
+BusName=fi.w1.wpa_supplicant1
+ExecStart=/sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+
+[Install]
+WantedBy=multi-user.target
+Alias=dbus-fi.w1.wpa_supplicant1.service
+
+
+
+
+3 - /etc/dnsmasq.conf 
+
+# Set the interface to listen on
+interface=wlan1
+
+# Specify the range of IP addresses to lease
+dhcp-range=192.168.1.175,192.168.1.177,12h
+
+# Set the default gateway
+dhcp-option=3,192.168.1.100
+
+# Set the DNS server(s)
+dhcp-option=6,8.8.8.8,8.8.4.4
+
+# Set the domain name
+domain=lan
+
+# Set the local hostname
+expand-hosts
+
+# Log DHCP requests
+log-dhcp
+
+# Log to syslog
+log-facility=/var/log/dnsmasq.log
+
+
+4 - /etc/systemd/system/multi-user.target.wants/hostapd.service 
+[Unit]
+Description=Advanced IEEE 802.11 AP and IEEE 802.1X/WPA/WPA2/EAP Authenticator
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/run/hostapd.pid
+Restart=on-failure
+RestartSec=2
+Environment=DAEMON_CONF=/etc/hostapd/hostapd_24.conf
+EnvironmentFile=-/etc/default/hostapd
+ExecStart=/usr/sbin/hostapd  -B -t -f /var/log/hostapd.log ${DAEMON_CONF}
+ExecStartPre=/bin/sleep 30 
+
+[Install]
+WantedBy=multi-user.target
+#!/bin/bash
+
+
+5 - /etc/hostapd/hostapd_24.conf
+
+interface=wlan1
+driver=nl80211
+ssid=SOMESSID
+hw_mode=g
+channel=6
+ieee80211n=1
+wmm_enabled=1
+ht_capab=[HT40+]
+auth_algs=1
+wpa=2
+wpa_passphrase=SOMEPASSPHRASE
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+
+6 - /etc/dhcpcd.conf
+
+hostname
+persistent
+option rapid_commit
+option domain_name_servers, domain_name, domain_search, host_name
+option classless_static_routes
+option interface_mtu
+require dhcp_server_identifier
+slaac private
+
+interface wlan0
+    dhcp
+#This makes dhcpcd setup the interface but not run any wpa_supplicant hooks for wlan1, allowing the interface to get into AP mode 
+#Further we will used the gateway of the interface using WPA-Enterprise
+interface wlan1
+    static ip_address=192.168.1.100/24
+    static routers=192.168.1.100
+    static domain_name_servers=8.8.8.8 8.8.4.4
+    nohook wpa_supplicant
+    nogateway
+
+7 - Make the Pi Route packets 
+sysctl net.ipv4.ip_forward=1
+
+8 - 
+
+```
+
+5. Reboot
+
+With that you should have:
+- A functioning client wifi connection on WPA2-Enterprise on wlan0
+- A functioning AP wifi connection on wlan1
