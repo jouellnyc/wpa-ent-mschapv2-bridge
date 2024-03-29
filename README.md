@@ -35,8 +35,8 @@ With all that out of the way...
 
 # How To
 1. Install Buster per usual
-2. Install Hostapd
-3. Install Dnsmasq
+2. Install Hostapd - I used Hostapd v2.8-devel
+3. Install Dnsmasq - I usued Dnsmasq version 2.80  
 4. Setup your config files like this or similar:
 
 
