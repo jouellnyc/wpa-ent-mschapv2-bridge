@@ -166,10 +166,14 @@ option interface_mtu
 require dhcp_server_identifier
 slaac private
 
+# This is the default wireless adapter, gets a dynamic IP from the WPA2 Enterprise network 
 interface wlan0
     dhcp
-#This makes dhcpcd setup the interface but not run any wpa_supplicant hooks for wlan1, allowing the interface to get into AP mode 
-#Further we will used the gateway of the interface using WPA-Enterprise
+
+# This makes dhcpcd setup the interface but not run any wpa_supplicant hooks for wlan1,
+# allowing the interface to get into AP mode 
+# Further we will use the gateway of the interface using WPA-Enterprise
+# Make sure the IP network numbers do not collide
 interface wlan1
     static ip_address=192.168.1.100/24
     static routers=192.168.1.100
