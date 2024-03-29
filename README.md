@@ -17,6 +17,18 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 - Proper power for the Pi - I use a 1.5A 5V unit  with a barrel plug adapter (for easy release / attach)
 - Optional - [OLED](https://www.amazon.com/gp/product/B08KY21SR2/) - I used 0.96" OLED on a tiny breadboard
 
+| Cautionary Notes | Description                                             |
+|-----------------|---------------------------------------------------------|
+| 1. | May need to use a low security workaround for ssl ciphers| 
+| 2. | Your password is in clear text protected  by unix permissions (unless your pi is stolen)|
+| 3. | Your Network Admin may not like this|
+
+| Other Notes | Description                                             |
+| 1. | This works Rasberry Pi OS Version "10 (buster)" (Bookworm in the future) |
+| 2. | Expecation is the microcontroller is capable of 2.4 GHZ only|
+| 3. | There is no actual network bridging happening per se, it's just a fancy term I use |
+
+
 - NOTE1: This works Rasberry Pi OS Version "10 (buster)" (Bookwork in the future)
 - NOTE2: Steps may need to use a low security workaround at the moment - I am just playing around in a lab env. Use Caution.
 - NOTE3: Your password is held in the clear in a text file protected only by unix permissions (which is nothing if your pi is stolen)
