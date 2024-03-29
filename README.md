@@ -14,7 +14,7 @@ How to set up a Raspberry Pi Device for use on a WPA2-Enterprise Network for the
 - NOTE1: This works Rasberry Pi OS Version "10 (buster)" (Bookwork in the future)
 - NOTE2: Steps use a low security workaround at the moment - I am just playing around in a lab env. Use Caution.
 - NOTE3: The expecation is the microcontroller / wifi supplicant on wlan1 will be capable of 2.4 GHZ only.
-
+- NOTE4: "Bridge" is just a term - there is no actual network or ethernet bridging actually happening per se
 
 # How To
 1. Install Buster per usual
@@ -189,7 +189,7 @@ See in this repo
 
 With that you should have:
 - A functioning client wifi connection on WPA2-Enterprise on wlan0
-- A functioning AP wifi connection on wlan1
+- A functioning AP wifi connection on wlan1 that routes packets for the client
 
 # References
 
