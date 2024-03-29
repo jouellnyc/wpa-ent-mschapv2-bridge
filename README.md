@@ -1,5 +1,5 @@
-# WPA2-Enterprise-Bridge-Setup
-Raspberry Pi "Bridge" setup for WPA2-Enterprise Network to allow microcontrollers without this capability to access the network.
+# WPA2-Enterprise-Bridge
+Raspberry Pi WPA2-Enterprise microcontroller "Bridge" 
 
 # Why? 
 
