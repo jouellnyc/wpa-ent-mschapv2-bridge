@@ -17,9 +17,10 @@ How to set up a Raspberry Pi Device for use on a WPA2-Enterprise Network for the
 - Optional - (OLED)[https://www.amazon.com/gp/product/B08KY21SR2/] - I used 0.96" OLED on a tiny breadboard
 
 - NOTE1: This works Rasberry Pi OS Version "10 (buster)" (Bookwork in the future)
-- NOTE2: Steps use a low security workaround at the moment - I am just playing around in a lab env. Use Caution.
-- NOTE3: The expecation is the microcontroller / wifi supplicant on wlan1 will be capable of 2.4 GHZ only.
-- NOTE4: "Bridge" is just a term - there is no actual network or ethernet bridging actually happening per se
+- NOTE2: Steps may need to use a low security workaround at the moment - I am just playing around in a lab env. Use Caution.
+- NOTE3: Your password is held in the clear in a text file protected only by unix permissions (which is nothing if your pi is stolen)
+- NOTE4: The expecation is the microcontroller / wifi supplicant on wlan1 will be capable of 2.4 GHZ only.
+- NOTE5: "Bridge" is just a term - there is no actual network or ethernet bridging actually happening per se
 
 # How To
 1. Install Buster per usual
@@ -39,7 +40,6 @@ update_config=1
 #tls_disable_tlsv1_0=0
 #tls_disable_tlsv1_1=0
 #openssl_ciphers=DEFAULT@SECLEVEL=0
-
 
 network={
 
@@ -203,6 +203,5 @@ With that you should have:
 [Pi Forum solution for Hostapd Startup Failures](https://forums.raspberrypi.com/viewtopic.php?t=234145)
 
 [Connection Bug lowering Security Levels](https://bugs.launchpad.net/ubuntu/+source/wpa/+bug/1958267)
-
 
 
