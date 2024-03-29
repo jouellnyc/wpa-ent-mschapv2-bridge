@@ -20,7 +20,10 @@ Raspberry Pi "Bridge" setup for WPA2-Enterprise Network to allow microcontroller
 - NOTE2: Steps may need to use a low security workaround at the moment - I am just playing around in a lab env. Use Caution.
 - NOTE3: Your password is held in the clear in a text file protected only by unix permissions (which is nothing if your pi is stolen)
 - NOTE4: The expecation is the microcontroller / wifi supplicant on wlan1 will be capable of 2.4 GHZ only.
-- NOTE5: "Bridge" is just a term - there is no actual network or ethernet bridging actually happening per se
+- NOTE5: Your Network Admin may not like this - I am just playing around in a lab env. Use Caution.
+- NOTE6: "Bridge" is just a term - there is no actual network or ethernet bridging actually happening per se
+
+With all that out of the way...
 
 # How To
 1. Install Buster per usual
