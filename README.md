@@ -163,7 +163,25 @@ interface wlan1
 7 - Make the Pi Route packets 
 sysctl net.ipv4.ip_forward=1
 
-8 - 
+8 - /etc/systemd/system/pi_screen_start.service 
+[Unit]
+Description=Pi Display OLED
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/root/pi_screen_start.sh
+
+[Install]
+WantedBy=multi-user.target
+
+9 - /root/pi_screen_start.sh 
+#!/bin/bash
+/usr/bin/python3 /root/disp_rad.py
+
+10 - disp_rad.py
+See in this repo
 
 ```
 
