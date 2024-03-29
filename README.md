@@ -1,5 +1,5 @@
 # WPA2-Enterprise-Bridge-Setup
-How to set up a Raspberry Pi Device for use on a WPA2-Enterprise Network for the express purpose of being a "bridge" for microcontrollers that do not have this capabilty.
+Raspberry Pi "Bridge" setup for WPA2-Enterprise Network to allow microcontrollers without this capability to access the network.
 
 # Why? 
 
