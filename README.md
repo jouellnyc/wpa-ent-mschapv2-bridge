@@ -196,6 +196,8 @@ With that you should have:
 - A functioning client wifi connection on WPA2-Enterprise on wlan0
 - A functioning AP wifi connection on wlan1 that routes packets for the client
 
+6. Point your Microcontroller to your Pi as if it were an AP with a basic WPA2 passphrase (because now it is)
+
 # References
 
 [Pi Forum solution for Hostapd Startup Failures](https://forums.raspberrypi.com/viewtopic.php?t=234145)
