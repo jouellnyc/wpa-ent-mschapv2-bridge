@@ -14,7 +14,7 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 - A raspbery pi or some sort
 - A second USB [wireless adapter](https://www.amazon.com/gp/product/B07C9TYDR4) - I used a Panda
 - Possibly a USB OTG hub
-- Proper power for the Pi -I use a 1.5A 5V unit  with a barrel plug adapter (for easy release / attach)
+- Proper power for the Pi - I use a 1.5A 5V unit  with a barrel plug adapter (for easy release / attach)
 - Optional - [OLED](https://www.amazon.com/gp/product/B08KY21SR2/) - I used 0.96" OLED on a tiny breadboard
 
 - NOTE1: This works Rasberry Pi OS Version "10 (buster)" (Bookwork in the future)
