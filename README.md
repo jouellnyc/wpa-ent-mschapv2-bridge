@@ -37,7 +37,8 @@ With all that out of the way...
 1. Install Buster per usual
 2. Install Hostapd - I used Hostapd v2.8-devel
 3. Install Dnsmasq - I usued Dnsmasq version 2.80  
-4. Setup your config files like this or similar:
+4. I used wpa_supplicant v2.10
+5. Setup your config files like this or similar:
 
 
 ```
@@ -201,13 +202,13 @@ See in this repo
 
 ```
 
-5. Reboot
+6. Reboot
 
 With that you should have:
 - A functioning client wifi connection on WPA2-Enterprise on wlan0
 - A functioning AP wifi connection on wlan1 that routes packets for the client
 
-6. Point your Microcontroller to your Pi as if it were an AP with a basic WPA2 passphrase (because now it is)
+7. Point your Microcontroller to your Pi as if it were an AP with a basic WPA2 passphrase (because now it is)
 
 # References
 
