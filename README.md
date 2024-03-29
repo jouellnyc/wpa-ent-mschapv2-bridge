@@ -171,3 +171,11 @@ sysctl net.ipv4.ip_forward=1
 With that you should have:
 - A functioning client wifi connection on WPA2-Enterprise on wlan0
 - A functioning AP wifi connection on wlan1
+
+# References
+
+[Pi Forum solution for Hostapd startup failures](https://forums.raspberrypi.com/viewtopic.php?t=234145)
+[Connection Bug](https://bugs.launchpad.net/ubuntu/+source/wpa/+bug/1958267)
+
+
+
