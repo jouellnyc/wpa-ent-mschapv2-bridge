@@ -249,7 +249,7 @@ References
 
 
 # Finally
-Whichever route you took: Point your Microcontroller to your Pi as if it were an AP with a basic WPA2 passphrase (because now it is)
+Point your Microcontroller to your Pi AP and use it's WPA2 passphrase to access the Internet. 
 
 
 
