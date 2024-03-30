@@ -33,7 +33,8 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 
 With all that out of the way...
 
-# How To
+# How To on Raspberry Pi OS Bullseye and older
+
 1. Install Buster per usual
 2. Install Hostapd - I used Hostapd v2.8-devel
 3. Install Dnsmasq - I used Dnsmasq version 2.80  
@@ -212,14 +213,40 @@ With that you should have:
 - A functioning client wifi connection on WPA2-Enterprise on wlan0
 - A functioning AP wifi connection on wlan1 that routes packets for the client
 
-7. Point your Microcontroller to your Pi as if it were an AP with a basic WPA2 passphrase (because now it is)
 
-# References
+References
 
 [Pi Forum solution for Hostapd Startup Failures](https://forums.raspberrypi.com/viewtopic.php?t=234145)
 
 [Connection Bug lowering Security Levels](https://bugs.launchpad.net/ubuntu/+source/wpa/+bug/1958267)
 
 [Connection Bug ](https://bbs.archlinux.org/viewtopic.php?id=286417&p=2)
+
+
+
+
+# How To on Raspberry Pi OS 12/BookWorm
+- Significantly shorter and easier, BUT alot has changed in BookWorm
+- Change IP address,  pre shared key, SSID as you wish
+
+```
+nmcli con add con-name wlan1-AP ifname wlan1 type wifi ssid "YOURSSID"
+nmcli con       modify wlan1-AP  wifi-sec.key-mgmt wpa-psk
+nmcli con       modify wlan1-AP  wifi-sec.psk "12345678"
+#NOTE: "bg" for 2.4GHz 802.11
+nmcli con      modify wlan1-AP  802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared
+nmcli con      modify wlan1-AP  ipv4.method shared ipv4.address 192.168.7.1/24
+```
+
+References
+
+[Turn Your Raspberry Pi into an Access Point (Bookworm ready) – RaspberryTips](https://raspberrytips.com/access-point-setup-raspberry-pi/#setting-up-an-access-point-on-raspberry-pi-os-bookworm)
+
+[SOLVED -  How to create wifi AP (Access Point) with NetworkManager on Bookworm? - Raspberry Pi Forums](https://forums.raspberrypi.com/viewtopic.php?t=357998)
+
+
+Finally, either route you took: Point your Microcontroller to your Pi as if it were an AP with a basic WPA2 passphrase (because now it is)
+
+
 
 
