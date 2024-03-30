@@ -233,6 +233,7 @@ With that you should have:
 Significantly shorter and easier, BUT alot has changed in BookWorm
 
 - Steps for the AP
+
 Change IP address,  pre shared key, SSID as you wish
 
 ```
