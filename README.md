@@ -261,6 +261,16 @@ nmcli con       modify wlan1-AP  wifi-sec.psk "12345678"
 nmcli con      modify wlan1-AP  802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared
 nmcli con      modify wlan1-AP  ipv4.method shared ipv4.address 192.168.7.1/24
 ```
+- Optional - Change the DNS servers dnsmasq gives out
+```
+echo "dhcp-option=6,8.8.8.8,8.8.4.4" >  /etc/NetworkManager/dnsmasq-shared.d/wlan1-dns-servers
+sudo systemctl restart NetworkManager
+```
+
+We can see why:
+```
+nobody    3447  3312  0 23:30 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/dev/null --no-hosts --keep-in-foreground --bind-interfaces --except-interface=lo --clear-on-reload --strict-order --listen-address=192.168.7.1 --dhcp-range=192.168.7.10,192.168.7.254,60m --dhcp-leasefile=/var/lib/NetworkManager/dnsmasq-wlan1.leases --pid-file=/run/nm-dnsmasq-wlan1.pid --conf-dir=/etc/NetworkManager/dnsmasq-shared.d
+```
 
 ## References
 
@@ -273,7 +283,5 @@ https://askubuntu.com/questions/262491/connect-to-a-wpa2-enterprise-connection-v
 
 # Finally
 Point your Microcontroller to your Pi AP and use it's WPA2 passphrase to access the Internet. 
-
-
 
 
