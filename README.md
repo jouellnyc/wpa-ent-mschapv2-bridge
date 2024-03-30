@@ -232,9 +232,7 @@ With that you should have:
 
 Significantly shorter and easier, BUT alot has changed in BookWorm
 
-- Steps for the AP
-
-Change IP address,  pre shared key, SSID as you wish
+- Steps for the AP: Change IP address,  pre shared key, SSID as you wish
 
 ```
 nmcli con add con-name wlan1-AP ifname wlan1 type wifi ssid "YOURSSID"
