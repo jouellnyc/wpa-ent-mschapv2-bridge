@@ -232,6 +232,23 @@ With that you should have:
 
 Significantly shorter and easier, BUT alot has changed in BookWorm
 
+- Steps for the wifi client on wlan0 - PEAP - WPA2 - Enterprise
+
+```
+nmcli connection add \
+    con-name "wlan0-EAP" \
+    type wifi \
+    ifname wlan0 \
+    ssid "SSID" \
+    wifi-sec.key-mgmt wpa-eap \
+    802-1x.eap peap \
+    802-1x.phase2-auth mschapv2 \
+    802-1x.identity "USER" \
+    802-1x.password "PASS" \
+    ipv4.method auto 
+```
+
+
 - Steps for the AP: Change IP address,  pre shared key, SSID as you wish
 
 ```
@@ -248,6 +265,8 @@ nmcli con      modify wlan1-AP  ipv4.method shared ipv4.address 192.168.7.1/24
 [Turn Your Raspberry Pi into an Access Point (Bookworm ready) – RaspberryTips](https://raspberrytips.com/access-point-setup-raspberry-pi/#setting-up-an-access-point-on-raspberry-pi-os-bookworm)
 
 [SOLVED -  How to create wifi AP (Access Point) with NetworkManager on Bookworm? - Raspberry Pi Forums](https://forums.raspberrypi.com/viewtopic.php?t=357998)
+
+https://askubuntu.com/questions/262491/connect-to-a-wpa2-enterprise-connection-via-cli-no-desktop
 
 
 # Finally
