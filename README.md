@@ -229,8 +229,11 @@ With that you should have:
 
 
 # How To on Raspberry Pi OS 12/BookWorm
-- Significantly shorter and easier, BUT alot has changed in BookWorm
-- Change IP address,  pre shared key, SSID as you wish
+
+Significantly shorter and easier, BUT alot has changed in BookWorm
+
+- Steps for the AP
+Change IP address,  pre shared key, SSID as you wish
 
 ```
 nmcli con add con-name wlan1-AP ifname wlan1 type wifi ssid "YOURSSID"
