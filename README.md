@@ -257,6 +257,7 @@ nmcli con add con-name wlan1-AP ifname wlan1 type wifi ssid "YOURSSID"
 nmcli con       modify wlan1-AP  wifi-sec.key-mgmt wpa-psk
 nmcli con       modify wlan1-AP  wifi-sec.psk "12345678"
 #NOTE: "bg" for 2.4GHz 802.11
+#NOTE: "shared" turns on 'sysctl net.ipv4.ip_forward=1'
 nmcli con      modify wlan1-AP  802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared
 nmcli con      modify wlan1-AP  ipv4.method shared ipv4.address 192.168.7.1/24
 ```
