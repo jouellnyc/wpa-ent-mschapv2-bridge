@@ -245,7 +245,8 @@ nmcli connection add \
     802-1x.phase2-auth mschapv2 \
     802-1x.identity "USER" \
     802-1x.password "PASS" \
-    ipv4.method auto 
+    ipv4.method auto       \
+    connection.autoconnect yes
 ```
 
 
