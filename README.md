@@ -63,13 +63,13 @@ network={
     key_mgmt=WPA-EAP
     eap=PEAP
     identity="YOURID"
+    password="YOURPASS"
 
 }
 
 
 cred={
 
-    password="YOURPASS"
     domain="DNS_SUBJECT_NAME_IN_THE_RADIUS_SERVERS_CERT"
     phase2="auth=MSCHAPV2"
 
