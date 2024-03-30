@@ -248,7 +248,8 @@ References
 [SOLVED -  How to create wifi AP (Access Point) with NetworkManager on Bookworm? - Raspberry Pi Forums](https://forums.raspberrypi.com/viewtopic.php?t=357998)
 
 
-Finally, either route you took: Point your Microcontroller to your Pi as if it were an AP with a basic WPA2 passphrase (because now it is)
+## Finally
+Whichever route you took: Point your Microcontroller to your Pi as if it were an AP with a basic WPA2 passphrase (because now it is)
 
 
 
