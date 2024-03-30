@@ -217,7 +217,7 @@ With that you should have:
 - A functioning AP wifi connection on wlan1 that routes packets for the client
 
 
-References
+## References
 
 [Pi Forum solution for Hostapd Startup Failures](https://forums.raspberrypi.com/viewtopic.php?t=234145)
 
@@ -241,7 +241,7 @@ nmcli con      modify wlan1-AP  802-11-wireless.mode ap 802-11-wireless.band bg 
 nmcli con      modify wlan1-AP  ipv4.method shared ipv4.address 192.168.7.1/24
 ```
 
-References
+## References
 
 [Turn Your Raspberry Pi into an Access Point (Bookworm ready) – RaspberryTips](https://raspberrytips.com/access-point-setup-raspberry-pi/#setting-up-an-access-point-on-raspberry-pi-os-bookworm)
 
