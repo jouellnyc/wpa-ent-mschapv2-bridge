@@ -7,7 +7,7 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 
 2 - Wifi "Monitor" on your desk. As an SRE/Staff Engineer, I find it a nice ice breaker, talking point:
 
-3a - Older Raspberry Pi versions were not straight forward, requiring lots of troubleshooting and research on my part.
+3a - Older Raspberry Pi versions were not straight forward, requiring lots of troubleshooting and research.
 3b - Bookworm was a breeze - Kudos to the references - I am summarizing the commands here.
 
 ![Pi Oled](images/pi-oled.png)
