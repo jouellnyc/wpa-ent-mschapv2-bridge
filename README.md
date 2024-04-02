@@ -272,6 +272,58 @@ We can see why:
 nobody    3447  3312  0 23:30 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/dev/null --no-hosts --keep-in-foreground --bind-interfaces --except-interface=lo --clear-on-reload --strict-order --listen-address=192.168.7.1 --dhcp-range=192.168.7.10,192.168.7.254,60m --dhcp-leasefile=/var/lib/NetworkManager/dnsmasq-wlan1.leases --pid-file=/run/nm-dnsmasq-wlan1.pid --conf-dir=/etc/NetworkManager/dnsmasq-shared.d
 ```
 
+## NAT or Routing
+Depending on your needs and network setups, including what networks you control, you may end up NAT'ing or routing the client supplicants.
+
+If you NAT, you could do it on the far interface (wlan1) of the pi zero, like this:
+
+```
+iptables-restore << EOF
+*filter
+:INPUT DROP [6060:457737]
+:FORWARD ACCEPT [4747414:5419577083]
+:OUTPUT ACCEPT [65013:5926371]
+:POSTROUTING - [0:0]
+-A INPUT -m state --state INVALID -j DROP
+-A INPUT -i lo -j ACCEPT
+-A INPUT -i wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -i wlan1 -j ACCEPT
+COMMIT
+*nat
+:PREROUTING ACCEPT [317970:108518009]
+:INPUT ACCEPT [51548:11407920]
+:POSTROUTING ACCEPT [13738:839526]
+:OUTPUT ACCEPT [63958:5047550]
+-A POSTROUTING -o wlan0 -j MASQUERADE
+COMMIT
+*mangle
+:PREROUTING ACCEPT [44370080:51260489365]
+:INPUT ACCEPT [1296829:348969549]
+:FORWARD ACCEPT [42949624:50863391170]
+:OUTPUT ACCEPT [1436882:350853870]
+:POSTROUTING ACCEPT [44386546:51214271434]
+COMMIT
+*raw
+:PREROUTING ACCEPT [44370080:51260489365]
+:OUTPUT ACCEPT [1436882:350853870]
+COMMIT
+*security
+:INPUT ACCEPT [1254879:345751357]
+:FORWARD ACCEPT [42949624:50863391170]
+:OUTPUT ACCEPT [1436828:350848972]
+COMMIT
+EOF
+
+```
+
+If you don't the upstream router may need a route back to the supplicants nework:
+
+```
+ip route add 192.168.7.0/255.255.255.0 via 192.168.0.198 dev eth1
+```
+
+
+
 ## References
 
 [Turn Your Raspberry Pi into an Access Point (Bookworm ready) – RaspberryTips](https://raspberrytips.com/access-point-setup-raspberry-pi/#setting-up-an-access-point-on-raspberry-pi-os-bookworm)
