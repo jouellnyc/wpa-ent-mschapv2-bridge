@@ -122,6 +122,7 @@ log-facility=/var/log/dnsmasq.log
 
 
 4 - /etc/systemd/system/multi-user.target.wants/hostapd.service 
+
 [Unit]
 Description=Advanced IEEE 802.11 AP and IEEE 802.1X/WPA/WPA2/EAP Authenticator
 After=network.target
@@ -131,15 +132,14 @@ Type=forking
 PIDFile=/run/hostapd.pid
 Restart=on-failure
 RestartSec=2
-Environment=DAEMON_CONF=/etc/hostapd/hostapd_24.conf
-EnvironmentFile=-/etc/default/hostapd
+DAEMON_CONF=/etc/hostapd/hostapd_24.conf
+EnvironmentFile=/etc/default/hostapd
 ExecStart=/usr/sbin/hostapd  -B -t -f /var/log/hostapd.log ${DAEMON_CONF}
-ExecStartPre=/bin/sleep 30 
+ExecStartPre=/bin/sleep 45 
 
 [Install]
 WantedBy=multi-user.target
 #!/bin/bash
-
 
 5 - /etc/hostapd/hostapd_24.conf
 
