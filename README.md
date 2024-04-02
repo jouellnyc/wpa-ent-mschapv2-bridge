@@ -324,7 +324,7 @@ ip route add 192.168.7.0/255.255.255.0 via 192.168.0.198 dev eth1
 
 ## Example Network Diagram
 
-![Network Diagram Example](images/pi_zero_net_diag.png)
+![Network Diagram Example](images/pi_zero_net_diagm.png)
 
 ## References
 
