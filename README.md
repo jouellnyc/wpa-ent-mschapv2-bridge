@@ -25,14 +25,13 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 | Cautionary Notes | Description                                             |
 |-----------------|---------------------------------------------------------|
 | 1. | May need to use a low security workaround for ssl ciphers| 
-| 2. | Your password is in clear text protected  by unix permissions (unless your pi is stolen)|
+| 2. | Your password is in clear text protected  by unix permissions (and not even that if your pi is stolen)|
 | 3. | Your Network Admin may not like this - I am just playing around using a LAB - use caution!|
 
 | Other Notes | Description                                             |
 |-----------------|---------------------------------------------------------|
-| 1. | This works Rasberry Pi OS Version "10 (buster)" (Bookworm in the future) |
-| 2. | Expecation is the microcontroller is capable of 2.4 GHZ only|
-| 3. | There is no actual network bridging happening per se, it's just a fancy term I use |
+| 1. | Expecation is the microcontroller is capable of 2.4 GHZ only|
+| 2. | There is no actual network bridging happening per se, it's just a fancy term I use |
 
 With all that out of the way...
 
