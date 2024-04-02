@@ -275,7 +275,7 @@ nobody    3447  3312  0 23:30 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/d
 ## NAT or Routing
 Depending on your needs and network setups, including what networks you control, you may end up NAT'ing or routing the client supplicants.
 
-If you NAT, you could do it on the far interface (wlan1) of the pi zero, like this:
+If you NAT (mostly likely), you could do it on the far interface (wlan1) of the pi zero, like this:
 
 ```
 iptables-restore << EOF
@@ -323,6 +323,7 @@ ip route add 192.168.7.0/255.255.255.0 via 192.168.0.198 dev eth1
 ```
 
 
+![Network Diagram Example](images/pi_zero_net.png)
 
 ## References
 
