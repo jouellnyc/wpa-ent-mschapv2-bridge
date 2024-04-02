@@ -17,7 +17,7 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 | Requirements |
 |-----------------|
 |A raspbery pi of some sort - I used a pi zero w|
-|A second USB [wireless adapter](https://www.amazon.com/gp/product/B07C9TYDR4) - I used a Panda as "wlan1" for the AP|
+|A second USB [wireless adapter](https://www.amazon.com/gp/product/B07C9TYDR4) - I used a Panda as "wlan0" for the AP|
 |Possibly a USB OTG hub|
 |Proper power for the Pi - I use a 1.5A 5V unit with a barrel plug adapter (for easy release / attach)|
 |Optional - [OLED](https://www.amazon.com/gp/product/B08KY21SR2/) - I used 0.96" OLED on a tiny breadboard|
@@ -285,7 +285,7 @@ iptables-restore << EOF
 :POSTROUTING - [0:0]
 -A INPUT -m state --state INVALID -j DROP
 -A INPUT -i lo -j ACCEPT
--A INPUT -i wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -i wlan0 -j ACCEPT
 -A INPUT -i wlan1 -j ACCEPT
 COMMIT
 *nat
