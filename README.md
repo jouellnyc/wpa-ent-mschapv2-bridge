@@ -315,6 +315,12 @@ EOF
 
 ```
 
+And consider using iptables-persistent to have the rules auto load on reboot.
+ 
+```
+apt-get install iptables-persistent -y
+```
+
 If you don't the upstream router may need a route back to the supplicants nework:
 
 ```
