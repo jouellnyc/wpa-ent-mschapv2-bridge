@@ -326,7 +326,8 @@ ip route add 192.168.7.0/255.255.255.0 via 192.168.0.198 dev eth1
 https://askubuntu.com/questions/262491/connect-to-a-wpa2-enterprise-connection-via-cli-no-desktop
 
 
-## Client - Point your Microcontroller to your Pi AP and use it's WPA2 passphrase to access the Internet. 
+## Client 
+Point your Microcontroller to your Pi AP and use it's WPA2 passphrase to access the Internet. 
 
 
 ## Finally - Openssl Connection Failure -  References
