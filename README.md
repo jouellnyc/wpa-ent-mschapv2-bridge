@@ -132,6 +132,7 @@ DAEMON_CONF=/etc/hostapd/hostapd_24.conf
 EnvironmentFile=/etc/default/hostapd
 ExecStart=/usr/sbin/hostapd  -B -t -f /var/log/hostapd.log ${DAEMON_CONF}
 ExecStartPre=/bin/sleep 45 
+#NB:In the end this was still a little glitchy...But also worked - not needed in Bookworm
 
 [Install]
 WantedBy=multi-user.target
