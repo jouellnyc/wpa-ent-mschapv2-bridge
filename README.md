@@ -24,7 +24,7 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 
 | Cautionary Notes | Description                                             |
 |-----------------|---------------------------------------------------------|
-| 1. | May need to use a low security workaround for ssl ciphers| 
+| 1. | Possible low security workaround for ssl/eap interoperability - see Rerferences| 
 | 2. | Your password is in clear text protected  by unix permissions (and not even that if your pi is stolen)|
 | 3. | Your Network Admin may not like this - I am just playing around using a LAB - use caution!|
 
@@ -51,10 +51,6 @@ country=US
 ctrl_interface=/var/run/wpa_supplicant
 ap_scan=1
 update_config=1
-### Not Secure or wise for Production 
-#tls_disable_tlsv1_0=0
-#tls_disable_tlsv1_1=0
-#openssl_ciphers=DEFAULT@SECLEVEL=0
 
 network={
 
@@ -216,17 +212,6 @@ With that you should have:
 - A functioning AP wifi connection on wlan1 that routes packets for the client
 
 
-## References
-
-[Pi Forum solution for Hostapd Startup Failures](https://forums.raspberrypi.com/viewtopic.php?t=234145)
-
-[Connection Bug lowering Security Levels](https://bugs.launchpad.net/ubuntu/+source/wpa/+bug/1958267)
-
-[Connection Bug ](https://bbs.archlinux.org/viewtopic.php?id=286417&p=2)
-
-
-
-
 # How To on Raspberry Pi OS 12/BookWorm
 
 Significantly shorter and easier, BUT alot has changed in BookWorm
@@ -340,7 +325,35 @@ ip route add 192.168.7.0/255.255.255.0 via 192.168.0.198 dev eth1
 https://askubuntu.com/questions/262491/connect-to-a-wpa2-enterprise-connection-via-cli-no-desktop
 
 
-# Finally
-Point your Microcontroller to your Pi AP and use it's WPA2 passphrase to access the Internet. 
+## Client - Point your Microcontroller to your Pi AP and use it's WPA2 passphrase to access the Internet. 
+
+
+## Finally - Openssl Connection Failure -  References
+There are many ways to proceed.
+
+For Buster,  I found:
+```
+tls_disable_tlsv1_0=0
+tls_disable_tlsv1_1=0
+openssl_ciphers=DEFAULT@SECLEVEL=0
+```
+For Bookworm, I found:
+```
+[802-1x]
+....snip..
+phase1-auth-flags=32
+```
+
+to work. Proceed at your own risk as above.
+
+Most relevant links:
+https://bugs.launchpad.net/ubuntu/+source/openssl/+bug/1963834/comments/7
+https://bugzilla.redhat.com/show_bug.cgi?id=2072070
+https://bugs.launchpad.net/ubuntu/+source/wpa/+bug/1962541
+https://ubuntuforums.org/showthread.php?t=2474436&p=14094091#post14094091
+https://bugs.launchpad.net/ubuntu/+source/wpa/+bug/1958267
+https://bbs.archlinux.org/viewtopic.php?id=286417&p=2
+
+
 
 
