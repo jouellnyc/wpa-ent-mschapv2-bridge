@@ -350,12 +350,15 @@ to work. Proceed at your own risk as above.
 
 Most relevant links:
 https://bugs.launchpad.net/ubuntu/+source/openssl/+bug/1963834/comments/7
+
 https://bugzilla.redhat.com/show_bug.cgi?id=2072070
+
 https://bugs.launchpad.net/ubuntu/+source/wpa/+bug/1962541
+
 https://ubuntuforums.org/showthread.php?t=2474436&p=14094091#post14094091
+
 https://bugs.launchpad.net/ubuntu/+source/wpa/+bug/1958267
+
 https://bbs.archlinux.org/viewtopic.php?id=286417&p=2
-
-
 
 
