@@ -349,6 +349,7 @@ phase1-auth-flags=32
 to work. Proceed at your own risk as above.
 
 Most relevant links:
+
 https://bugs.launchpad.net/ubuntu/+source/openssl/+bug/1963834/comments/7
 
 https://bugzilla.redhat.com/show_bug.cgi?id=2072070
