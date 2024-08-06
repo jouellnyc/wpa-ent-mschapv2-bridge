@@ -329,6 +329,7 @@ ip route add 192.168.7.0/255.255.255.0 via 192.168.0.198 dev eth1
 [Luma Install](https://luma-led-matrix.readthedocs.io/en/latest/install.html)
 
 sudo python3 -m pip install --upgrade luma.oled  --root-user-action=ignore for "Luma OLED" install.
+sudo apt-get install i2c-tools
 
 
 ## Client 
