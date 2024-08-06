@@ -319,7 +319,8 @@ ip route add 192.168.7.0/255.255.255.0 via 192.168.0.198 dev eth1
 ![Network Diagram Example](images/pi_zero_net_diagm.png)
 
 
-## OLED
+## OLED Setup
+
 For Luma
 `sudo python3 -m pip install --upgrade luma.led_matrix`
 
@@ -349,7 +350,25 @@ Find the I2C address of the OLED
 
 </PRE>
 
+<PRE>
 
+    #"HELLO WORLD"
+
+from luma.core.interface.serial import i2c
+from luma.core.render import canvas
+
+from luma.oled.device import sh1106
+from PIL import ImageFont
+
+serial = i2c(port=1, address=0x3C)
+device = sh1106(serial, rotate=0)
+font_size = 12 
+font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+font = ImageFont.truetype(font_path, font_size)
+with canvas(device) as draw:
+    draw.text((0, 0), "testing", font=font,  fill=255)
+
+</PRE>
 
 ## References
 
