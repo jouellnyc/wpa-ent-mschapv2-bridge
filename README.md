@@ -350,9 +350,9 @@ Find the I2C address of the OLED
 
 </PRE>
 
-<PRE>
+Test "HELLO WORLD" script:
 
-    #"HELLO WORLD"
+<PRE>
 
 from luma.core.interface.serial import i2c
 from luma.core.render import canvas
