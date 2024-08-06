@@ -321,7 +321,7 @@ ip route add 192.168.7.0/255.255.255.0 via 192.168.0.198 dev eth1
 
 ## OLED Setup
 
-Match up the wires to the appropriate slot on the PiZero:
+Match up the wires to the appropriate slot on the PiZero (1,3,5 and 6 (GND) : 
 
 ![image](https://github.com/user-attachments/assets/6f727e26-77fa-45fe-bd40-2ee446d95e15)
 
