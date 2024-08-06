@@ -324,7 +324,7 @@ ip route add 192.168.7.0/255.255.255.0 via 192.168.0.198 dev eth1
 
 [SOLVED -  How to create wifi AP (Access Point) with NetworkManager on Bookworm? - Raspberry Pi Forums](https://forums.raspberrypi.com/viewtopic.php?t=357998)
 
-[connect-to-a-wpa2-enterprise-connection-via-cli-no-desktop](https://askubuntu.com/questions/262491/connect-to-a-wpa2-enterprise-connection-via-cli-no-desktop)
+[AU:Connect-to-a-wpa2-enterprise-connection-via-cli-no-desktop](https://askubuntu.com/questions/262491/connect-to-a-wpa2-enterprise-connection-via-cli-no-desktop)
 
 [Luma Install](https://luma-led-matrix.readthedocs.io/en/latest/install.html)
 
