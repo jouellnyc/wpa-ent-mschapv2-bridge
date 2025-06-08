@@ -17,7 +17,7 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 
 | Requirements |
 |-----------------|
-|A raspbery pi of some sort - I used a pi zero w|
+|A raspberry pi of some sort - I used a pi zero w|
 |A second USB [wireless adapter](https://www.amazon.com/gp/product/B07C9TYDR4) - I used a Panda as "wlan0" for the AP|
 |Possibly a USB OTG hub|
 |Proper power for the Pi - I use a 1.5A 5V unit with a barrel plug adapter (for easy release / attach)|
