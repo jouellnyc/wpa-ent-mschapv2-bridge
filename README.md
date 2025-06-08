@@ -425,6 +425,7 @@ https://bbs.archlinux.org/viewtopic.php?id=286417&p=2
 
 - As I was researching this, I also thought about a physical connection for the client instead of wireless one. 
 - It turns out someone else has documented a lot of it in a forum. 
-- If you want a wired ppp connection, you can follow [this](https://github.com/jouellnyc/UART/tree/main/esp32_pizero_ppp) 
+- If you want a wired ppp connection, you can follow [this](https://github.com/jouellnyc/UART/tree/main/esp32_pizero_ppp)
+- Got a switch and Ethernet Modules? [Ethernet](https://github.com/jouellnyc/micropython_ethernet) may help here vs wifi.
 
 
