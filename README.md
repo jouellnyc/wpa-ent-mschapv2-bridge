@@ -31,7 +31,7 @@ Raspberry Pi WPA2-Enterprise microcontroller "Bridge"
 
 | Other Notes | Description                                             |
 |-----------------|---------------------------------------------------------|
-| 1. | Expecation is the microcontroller is capable of 2.4 GHZ only|
+| 1. | Expectation is the microcontroller is capable of 2.4 GHZ only|
 | 2. | There is no actual network bridging happening per se, it's just a fancy term I use |
 
 With all that out of the way...
