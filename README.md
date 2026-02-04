@@ -368,6 +368,9 @@ Find the I2C address of the OLED
 
 </PRE>
 
+Fonts
+sudo apt-get update -y; sudo apt-get install fonts-piboto -y
+
 Test "HELLO WORLD" script:
 
 <PRE>
