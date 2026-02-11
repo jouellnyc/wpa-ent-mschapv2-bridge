@@ -11,50 +11,8 @@ from luma.core.render import canvas
 from luma.oled.device import sh1106
 from PIL import ImageFont
 
-# Optional GPIO LED support
-try:
-    from gpiozero import LED
-    gpio_available = True
-except Exception:
-    gpio_available = False
-    class LED:
-        def __init__(self, pin): self.pin = pin
-        def on(self): pass
-        def off(self): pass
-        def blink(self, on_time=0.5, off_time=0.5, background=True): pass
-        def close(self): pass
-
 # ============================================================================
-# LOGGING CONFIGURATION
-# ============================================================================
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-
-file_handler = logging.FileHandler('/tmp/wifi_monitor.log', mode='a')
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
-
-console_handler = logging.StreamHandler(sys.stdout)
-console_handler.setFormatter(formatter)
-logger.addHandler(console_handler)
-
-# ============================================================================
-# CONFIGURATION
-# ============================================================================
-start = 2
-font_size = 12
-# Ensure this path is correct for your OS; common alternative: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
-font_path = "/usr/share/fonts/truetype/piboto/PibotoLt-Regular.ttf" 
-try:
-    font = ImageFont.truetype(font_path, font_size)
-except:
-    font = ImageFont.load_default()
-
-GREEN_PIN, YELLOW_PIN, RED_PIN = 22, 27, 17
-
-# ============================================================================
-# HARDWARE INITIALIZATION
+# INITIALIZATION & HARDWARE
 # ============================================================================
 device = None
 oled_available = False
@@ -62,98 +20,129 @@ try:
     serial = i2c(port=1, address=0x3C)
     device = sh1106(serial, rotate=0)
     oled_available = True
-    logger.info("✓ OLED initialized")
-except Exception as e:
-    logger.warning(f"OLED not available: {e}")
+except Exception:
+    pass
 
-green_led = LED(GREEN_PIN)
-yellow_led = LED(YELLOW_PIN)
-red_led = LED(RED_PIN)
+try:
+    from gpiozero import LED
+except ImportError:
+    class LED:
+        def __init__(self, pin): pass
+        def on(self): pass
+        def off(self): pass
+
+green_led, yellow_led, red_led = LED(22), LED(27), LED(17)
+
+try:
+    font = ImageFont.truetype("/usr/share/fonts/truetype/piboto/PibotoLt-Regular.ttf", 12)
+    small_font = ImageFont.truetype("/usr/share/fonts/truetype/piboto/PibotoLt-Regular.ttf", 10)
+except:
+    font = ImageFont.load_default()
+    small_font = ImageFont.load_default()
 
 # ============================================================================
-# HELPER FUNCTIONS
+# SCIENTIFIC DATA ACQUISITION
 # ============================================================================
 
-def get_wifi_details():
-    """Dynamically fetch SSID and Signal Strength using iwconfig."""
-    ssid, dbm = "Offline", "--"
+def get_network_stats():
+    stats = {'ssid': "Offline", 'dbm': -100, 'gw': None, 'ip': "No IP"}
     try:
-        # We use iwconfig because it's faster for signal levels than scanning
-        output = subprocess.check_output(['iwconfig', 'wlan0'], stderr=subprocess.STDOUT).decode('utf-8')
+        iw = subprocess.check_output(['iwconfig', 'wlan0'], stderr=subprocess.STDOUT).decode('utf-8')
+        ssid_m = re.search(r'ESSID:"([^"]+)"', iw)
+        dbm_m = re.search(r'Signal level=(-\d+)', iw)
+        if ssid_m: stats['ssid'] = ssid_m.group(1)
+        if dbm_m: stats['dbm'] = int(dbm_m.group(1))
         
-        # Extract SSID
-        ssid_match = re.search(r'ESSID:"([^"]+)"', output)
-        if ssid_match:
-            ssid = ssid_match.group(1)
-        
-        # Extract Signal Level (dBm)
-        dbm_match = re.search(r'Signal level=(-\d+)', output)
-        if dbm_match:
-            dbm = f"{dbm_match.group(1)}dBm"
-            
-    except Exception as e:
-        logger.debug(f"Error fetching WiFi details: {e}")
-    
-    return ssid, dbm
-
-def set_led_state(state):
-    try:
-        if state == 'success':
-            yellow_led.off(); red_led.off(); green_led.on()
-        elif state == 'failure':
-            yellow_led.off(); green_led.off(); red_led.on()
-        elif state == 'reconfiguring':
-            green_led.off(); red_led.off(); yellow_led.blink(0.6, 0.6)
+        stats['gw'] = subprocess.check_output("ip route show 0.0.0.0/0 | awk '{print $3}'", shell=True).decode('utf-8').strip()
+        stats['ip'] = subprocess.check_output("hostname -I | cut -d' ' -f1", shell=True).decode("utf-8").strip()
     except: pass
+    return stats
 
-def show_display(IP, auth_msg, wifi_msg, ctime, ssid, dbm):
-    if not oled_available: return
-    try:
-        with canvas(device) as draw:
-            draw.text((0, start), ctime, font=font, fill=255)
-            draw.text((0, start+15), f"IP: {IP}", font=font, fill=255)
-            draw.text((0, start+30), f"GW: {auth_msg}", font=font, fill=255)
-            # Line 4: SSID and Signal Strength
-            draw.text((0, start+45), f"{ssid[:12]} {dbm}", font=font, fill=255)
-    except Exception as e:
-        logger.error(f"Display error: {e}")
+# ============================================================================
+# THE UI ENGINE
+# ============================================================================
+
+def draw_ui_elements(draw, s, timestamp, frame):
+    """Full UI Encapsulation: 2-letter DOW, 1-letter Meridian, Max Clearance."""
+    
+    # 1. OUTER BORDER
+    draw.rectangle((0, 0, 127, 63), outline=255, fill=0)
+
+    # 2. HEADER SECTION (Centering: y=2)
+    draw.text((4, 2), timestamp, font=font, fill=255)
+    
+    # Signal Bars (Upper Right, Aligned to y=4)
+    x_bars, y_bars = 110, 4
+    bars = 0
+    if s['dbm'] > -50: bars = 4
+    elif s['dbm'] > -60: bars = 3
+    elif s['dbm'] > -70: bars = 2
+    elif s['dbm'] > -80: bars = 1
+
+    for i in range(4):
+        bx = x_bars + (i * 4)
+        by_top = y_bars + 10 - (i * 2 + 2)
+        by_bot = y_bars + 10
+        fill = 255 if i < bars else 0
+        draw.rectangle((bx, by_top, bx + 2, by_bot), outline=255, fill=fill)
+
+    # Blinking Alert Icon (Triangle !)
+    if not s['gw'] and s['dbm'] > -100 and (frame % 2 == 0):
+        ax, ay = 96, 4
+        draw.polygon([(ax, ay+10), (ax+5, ay), (ax+10, ay+10)], outline=255, fill=0)
+        draw.line((ax+5, ay+3, ax+5, ay+7), fill=255)
+        draw.point((ax+5, ay+9), fill=255)
+
+    # INTERNAL SEPARATOR (y=17 for breathing room)
+    draw.line((1, 17, 126, 17), fill=255)
+
+    # 3. DATA SECTION (X-padding = 4px)
+    draw.text((4, 21), f"IP: {s['ip']}", font=font, fill=255)
+    draw.text((4, 34), f"GW: {s['gw'] if s['gw'] else 'MISSING'}", font=font, fill=255)
+    
+    # Bottom Row: Lifted to y=47 for border clearance
+    draw.text((4, 47), f"Net: {s['ssid'][:11]}", font=font, fill=255)
+    draw.text((92, 49), f"{s['dbm']}dBm", font=small_font, fill=255)
+
+    # HEARTBEAT (Bottom Right)
+    if frame % 2 == 0:
+        draw.point((125, 61), fill=255)
 
 # ============================================================================
 # MAIN LOOP
 # ============================================================================
-logger.info("WiFi Monitor Starting (Dynamic Mode)")
+
+frame_counter = 0
 
 try:
     while True:
-        ctime = datetime.now().strftime("%b-%d %I:%M %p")
-        current_ssid, signal_dbm = get_wifi_details()
+        stats = get_network_stats()
         
-        # Use your custom logic to find IP
-        try:
-            IP = subprocess.check_output("hostname -I | cut -d' ' -f1", shell=True).decode("utf-8").strip()
-            if not IP: IP = '127.0.0.1'
-        except: IP = 'NA'
+        # Build 2-letter DOW and 1-letter Meridian: Tu Feb 10 10:29P
+        now = datetime.now()
+        dow = now.strftime("%a")[:2] 
+        rest = now.strftime("%b %-d %-I:%M")
+        meridian = now.strftime("%p")[0]
+        t_str = f"{dow} {rest}{meridian}" 
 
-        # Fetch Gateway dynamically (no lemmings allowed)
-        try:
-            gw_cmd = "ip route | grep default | awk '{print $3}'"
-            gateway = subprocess.check_output(gw_cmd, shell=True).decode("utf-8").strip()
-            if not gateway: gateway = 'None'
-        except: gateway = 'Error'
+        if oled_available:
+            with canvas(device) as draw:
+                draw_ui_elements(draw, stats, t_str, frame_counter)
 
-        if current_ssid != "Offline":
-            set_led_state('success')
-            show_display(IP, gateway, "Online", ctime, current_ssid, signal_dbm)
+        # LED & Network Recovery
+        if stats['dbm'] > -100 and stats['gw']:
+            green_led.on(); yellow_led.off(); red_led.off()
+        elif stats['dbm'] > -100 and not stats['gw']:
+            green_led.off(); yellow_led.on(); red_led.off()
         else:
-            set_led_state('reconfiguring')
-            show_display(IP, "---", "Searching", ctime, "SCANNING...", "--")
-            # Only trigger reconfigure if we've actually lost the carrier
-            subprocess.run(["/usr/sbin/wpa_cli", "-i", "wlan0", "reconfigure"], capture_output=True)
-            time.sleep(10)
+            green_led.off(); yellow_led.off(); red_led.on()
+            subprocess.run(["nmcli", "device", "reapply", "wlan0"], capture_output=True)
 
-        # Sleep for 60s - keeps clock relatively accurate without hammering the CPU
-        time.sleep(60)
+        frame_counter += 1
+        time.sleep(1)
 
 except KeyboardInterrupt:
-    green_led.off(); yellow_led.off(); red_led.off()
-    logger.info("Shutdown requested.")
+    pass
+finally:
+    [l.off() for l in [green_led, yellow_led, red_led] if hasattr(l, 'off')]
+
