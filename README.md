@@ -198,9 +198,11 @@ ExecStart=/usr/bin/python3 /root/disp_rad.py
 WorkingDirectory=/root
 Restart=on-failure
 RestartSec=5
+Environment=PYTHONUNBUFFERED=1
 
 [Install]
 WantedBy=multi-user.target
+
 
 9 - /root/pi_screen_start.sh 
 #!/bin/bash
