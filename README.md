@@ -399,6 +399,17 @@ with canvas(device) as draw:
 
 </PRE>
 
+## Systemd Management
+
+| Task | Command |
+| :--- | :--- |
+| **Reconfig** | `systemctl daemon-reload`|
+| **Check status** | `systemctl status pi_screen_start.service` |
+| **Restart service** | `systemctl restart pi_screen_start.service` |
+| **Stop service** | `systemctl stop pi_screen_start.service` |
+| **View live logs** | `journalctl -u pi_screen_start.service -f` |
+| **Enable on boot** | `systemctl enable pi_screen_start.service` |
+
 ## References
 
 [Turn Your Raspberry Pi into an Access Point (Bookworm ready) – RaspberryTips](https://raspberrytips.com/access-point-setup-raspberry-pi/#setting-up-an-access-point-on-raspberry-pi-os-bookworm)
