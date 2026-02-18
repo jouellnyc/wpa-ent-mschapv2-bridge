@@ -50,9 +50,10 @@ try:
     serial = i2c(port=1, address=0x3C)
     device = sh1106(serial, rotate=0)
     oled_available = True
-    log.info("OLED display initialized.")
 except Exception as e:
     log.warning(f"OLED unavailable: {e}")
+else:
+    log.info("OLED display initialized.")
 
 try:
     from gpiozero import LED
@@ -60,6 +61,8 @@ except ImportError:
     log.warning("gpiozero not found; using LED stub.")
     from unittest.mock import MagicMock
     LED = lambda pin: MagicMock()
+else:
+    log.info("Extra imports OK")
 
 green_led  = LED(22)
 yellow_led = LED(27)
@@ -72,6 +75,8 @@ except Exception as e:
     log.warning(f"Custom font unavailable, using default: {e}")
     font       = ImageFont.load_default()
     small_font = ImageFont.load_default()
+else:
+    log.info("Original fonts OK")
 
 # ============================================================================
 # NETWORK DATA ACQUISITION
