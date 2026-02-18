@@ -1,4 +1,3 @@
-
 import psutil
 from datetime import datetime
 import time
@@ -62,7 +61,7 @@ except ImportError:
     from unittest.mock import MagicMock
     LED = lambda pin: MagicMock()
 else:
-    log.info("Extra imports OK")
+    log.info("gpiozero imported OK.")
 
 green_led  = LED(22)
 yellow_led = LED(27)
@@ -76,7 +75,7 @@ except Exception as e:
     font       = ImageFont.load_default()
     small_font = ImageFont.load_default()
 else:
-    log.info("Original fonts OK")
+    log.info("Custom fonts loaded OK.")
 
 # ============================================================================
 # NETWORK DATA ACQUISITION
@@ -238,11 +237,15 @@ def main():
                 led.off()
             except Exception as e:
                 log.warning(f"Failed to turn off LED: {e}")
+            else:
+                log.debug(f"LED {led} off.")
         if oled_available and device:
             try:
                 device.cleanup()
             except Exception as e:
                 log.warning(f"Failed to clean up OLED device: {e}")
+            else:
+                log.info("OLED cleaned up.")
 
 
 if __name__ == "__main__":
